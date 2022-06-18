@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="js/three.js"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Adarsh Gupta</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Projects</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <h1>Bustamante's Journal Project</h1>
+        </div>
+        <div class="row">
+            <h3>Introduction</h3>
+            <p>This is a daily journal of Carlos María de Bustamante, a prominent newspaper editor and politician in the newly independent Mexican nation. 
+                Bustamante lived from 1774 to 1848. His diary covers 1823-1848. The period 1823-48 is critical in the political development of the fledging Mexican independent state. Mexico declared independence in 1821 and soon this was recognized by Spanish authorities. However, the beginnings were rocky. The first empire lasted two years, in 1824 a new constitution was passed with a republican form of government. Disputes between different factions and regions led eventually to a centralist regime in 1833 that attempted to concentrate more power in Mexico City with considerable resistance in other regions, and increasing fight between liberal and conservative facitons. No president lasted longer than a couple of years and a picturesque strongman (caudillo) dominated the political scene in most years (Santa Anna). In 1845 the US-Mexico war started, finalizing with the loss of 50% of Mexico’s territory.
+                </p>
+        </div>
+        <div class="row">
+            <h3>Structure of the diary</h3>
+            <p>Bustamante followed a pattern in his diary. He had a header for the month. Then he started each day with the date, followed by a record of his climate impressions, then he wrote the daily entry of events in the city, country and the world. At the end of the day or of the month he clipped newspaper articles.
+                The Diario was transcribed and published in the late 19th century. I placed a copy of one of the volumes (filename “original”) in our shared folder, just for your reference. Do not use.
+                In 2001 a prestigious Mexican university published a cd-rom with a text-only version in PDF format. I’m trying to access the original files (likely in word format), but the PDF’s have no restrictions as far as I can tell. I merged these PDFs in four files: 1820s (1822-29), 1830s (1830-34), 1835s (1835-39), 1840s (1840-48). They roughly have a similar size in MB (33-45 MB).
+                The PDF is well structured with color coding and common formatting. My suggestion is to identify the dates, which follow this structure like this:
+                -	Paragraph 1, in blue: “Lunes 13 de enero de 1830” (Monday 13 January 1830). 
+                -	Paragraph 2, in red and in parentheses: climate description (e.g. “Bello día”)
+                -	Paragraph 3 to N: the commentary for the day.
+                -	At the end of the day: pamphlet/newspaper clippings.
+                The rule to construct the date:
+                -	dayname daynumber “de” month “de” year. (de=“of”).
+                -	Daynames: lunes, martes, miércoles, jueves, viernes, sábado, domingo 
+                -	month (from 1 to 12)= enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre
+                -	years: from 1823 to 1848
+                </p>
+        </div>
+        <div class="row">
+            <h3>Issues we faced</h3>
+            <p>-	The first months of the diary do not have climate observations. The first climate observation starts on “Jueves 9 de enero de 1823” (9 Jan 1823), page 71. 
+                -	The quality of the transcription is very good, but we are bound to find some minor issues. For instance: “Jueves 16 de enero de 1 823” —> notice the space in between the 1 and the 8.
+                -	Some days may lack a climate observation or may be skipped entirely (e.g. 9 Jan 1831).
+                Careful: many dates are repeated in the newspaper/pamphlet clippings. This is why I think the structure of the text is important. 
+                Finally, there’s no need to use the diacriticals in building tokens. I suggest to keep them in the first outcome file that I mention below.
+                </p>
+        </div>
+        <div class="row">
+            <h3>End Product</h3>
+            <p>Big goal #1: Create a daily database of qualitative description of the weather in Mexico City
+                Capture all text related to climate, day by day 
+                My minimum goal is to have a structured data file like this (csv):
+                Date, “Literal transcription of climate information”
+                It is convenient to keep the diacriticals here.
+                Tokenize the words
+                Drop the diacritical accents (á, é, í, ó, ú, ü) but do not drop the tilde on the n (ñ). 
+                I’m happy to help with stemming. A standard Spanish dictionary should help but there may be some words that are unique to 19th century Mexico. (This is unlikely, though, in the weather descriptions.)
+                I don’t know what data structure you prefer. The way I envision this is something like this:
+                “original word”, “stem”, date
+                Big goal #2: Identify clusters of words that correlate with daily quantitative climate data
+                I’m primarily interested in two big issues: rainfall & temperature. There are related phenomena and qualifiers: too much rain, little rain; humidity level; cold; hot; and frost. (Frost is huge as it is a harvest killer in this region.)
+                The quantitative weather data are available for 1824
+                Identify patterns that describe the climate 
+                I feel that you have a much better idea of how to do this, but I’ll present here how I’d approach this using standard statistical technics. We do not need to do this, this is just how I can visualize it given my use of tools.
+                Route #1: 
+                We could use daily meteorological information and test correlation with tokens. Climate observations are also by day. I’m very used to work with panel data structured as 
+                i, t, rain, temperature
+                Where i is the token, t is the day, and rain is cumulative daily rainfall in mm, and temp is average daily temperature. 
+                The problem with this is that it’ll still need a lot of purging and supervision. E.g. the word “very” (mucho or muy in Spanish) is likely correlated to rain and temperature. It probably requires to separate tokens that describe a phenomenon (e.g. rain) and tokens that qualify the phenomenon (e.g. very, little)
+                Route #2: topic modeling
+                I feel this is what you mean by unsupervised. 
+                If one produces n topic models ‘M’, then, the data file could be composed of these observations:
+                t, M, W
+                Where t is the date, M the vector of probabilities of different topic models, an W the vector of quantitative climate observations (rain, etc). 
+                Predict daily weather from qualitative description
+                Building on the previous work of correlation, eventually I want to forecast rainfall and temperature in each day. Ideally I’d love to forecast frost as well. 
+                With this daily forecast, then, I’d like to aggregate by year. 
+                Calibrate paleoclimatic drought data with the forecast
+                Based on the annual forecast aggregates, test the correlation of tree-ring growth-based drought indexes with qualitative observations.
+                Big goal #3: Sentiment analysis
+                The daily weather descriptions are rich in expressing opinions about the weather: “beautiful day” (día bello), “beautiful day, but cold”, etc. These nuggets are interesting for a more cultural analysis of weather. 
+                In particular I’d love to see if we can detect some terms that reflect more anxieties with droughts, frosts or flooding. Bustamante was only 12 when he experienced the great famine of 1785-86, and in his mid 30s during another famine episode in 1806-9. During those years there were a couple of epidemic events as well. However, it looks like the climate and public health improved significantly in the 1820s, with the exception of cholera in 1833.
+                If we can generate some dimensions of sentiment, we could have a file like
+                t, F
+                Where F is a vector of feeling models. We could then correlate F with other information on the weather, prices, etc.
+                Big goal #4: Further applications
+                As Dr. Dasigi said, the daily journal is very rich. We could identify some patterns. Political conditions, economic conditions, social description, political networks could be some possibilities. 
+                Data files
+                I created this OneDrive, with no restrictions to edit/create new files: 
+                https://falconbgsu-my.sharepoint.com/:f:/g/personal/achallu_bgsu_edu/ElSZ0tFzZDZFkizbR7XAM48BhNebfx4irEl2yVolXjTqyA?e=XEWFRJ
+                So far I have three folders:
+                1) Text files: has the PDF’s 
+                </p>
+        </div>
+        <div class="row">
+            <h3>Summary of the project as presented at BGSU CURS 2021 Spring</h3>
+            <h1>PUTTING SNAPSHOTS HERE</h1>
+        </div>
+
+    </div>
+    
+   
+    
+
+
+  </body>
+</html>
